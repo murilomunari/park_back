@@ -43,9 +43,18 @@ public class UserService {
     }
 
     @Transactional
-    public User editPassword(String id, String password) {
+    public User editPassword(String id, String currentPassword, String newPassword, String confirmPassword) {
+
+        if (!newPassword.equals(confirmPassword)){
+            throw new RuntimeException("Senha diferente da confirmação!");
+        }
+
         User user = findById(id);
-        user.setPassword(password);
+        if (!user.getPassword().equals(currentPassword)) {
+            throw new RuntimeException("Senha diferente da atual!");
+        }
+
+        user.setPassword(newPassword);
         return user;
     }
 }

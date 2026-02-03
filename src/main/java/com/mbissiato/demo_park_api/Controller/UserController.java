@@ -1,5 +1,6 @@
 package com.mbissiato.demo_park_api.Controller;
 
+import com.mbissiato.demo_park_api.DTO.UpdatePasswordDTO;
 import com.mbissiato.demo_park_api.DTO.UserRequest;
 import com.mbissiato.demo_park_api.Entity.User;
 import com.mbissiato.demo_park_api.Service.UserService;
@@ -35,8 +36,15 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<User> updatePassword (@PathVariable String id, @RequestBody User user) {
-        User users = userService.editPassword(id, user.getPassword());
-        return ResponseEntity.status(HttpStatus.OK).body(users);
+    public ResponseEntity<String> updatePassword(@PathVariable String id, @RequestBody UpdatePasswordDTO data) {
+
+        userService.editPassword(
+                id,
+                data.currentPassword(),
+                data.newPassword(),
+                data.confirmPassword()
+        );
+
+        return ResponseEntity.ok("Senha atualizada com sucesso!");
     }
 }
