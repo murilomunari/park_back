@@ -41,4 +41,11 @@ public class UserService {
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
+    @Transactional
+    public User editPassword(String id, String password) {
+        User user = findById(id);
+        user.setPassword(password);
+        return user;
+    }
 }

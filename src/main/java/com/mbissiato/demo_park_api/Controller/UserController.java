@@ -33,4 +33,10 @@ public class UserController {
     public ResponseEntity<List<User>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<User> updatePassword (@PathVariable String id, @RequestBody User user) {
+        User users = userService.editPassword(id, user.getPassword());
+        return ResponseEntity.status(HttpStatus.OK).body(users);
+    }
 }
