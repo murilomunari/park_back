@@ -4,6 +4,7 @@ import com.mbissiato.demo_park_api.DTO.UpdatePasswordDTO;
 import com.mbissiato.demo_park_api.DTO.UserRequest;
 import com.mbissiato.demo_park_api.Entity.User;
 import com.mbissiato.demo_park_api.Service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> create (@RequestBody UserRequest data) {
+    public ResponseEntity<User> create (@Valid @RequestBody UserRequest data) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(data));
 
     }
